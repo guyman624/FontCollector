@@ -16,6 +16,15 @@ from .font import (
 from .mkvtoolnix import MKVExtract, MKVPropedit
 from .parse_arguments import parse_arguments
 
+
+class ExcludeTermsFilter(logging.Filter):
+    def __init__(self, exclude_terms):
+        super().__init__()
+        self.exclude_terms = exclude_terms
+
+    def filter(self, record):
+        return not any(term in record.getMessage() for term in self.exclude_terms)
+
 _logger = logging.getLogger(__name__)
 
 
@@ -31,8 +40,12 @@ def main() -> None:
         use_system_font,
         collect_draw_fonts,
         convert_variable_to_collection,
-        logging_file_path
+        logging_file_path,
+        logging_exclude_terms
     ) = parse_arguments()
+
+    if logging_exclude_terms:
+        logging.getLogger().addFilter(ExcludeTermsFilter(logging_exclude_terms))
 
     if logging_file_path:
         file_handler = logging.FileHandler(logging_file_path, mode="a", encoding="utf-8")
