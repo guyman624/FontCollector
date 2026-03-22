@@ -1,15 +1,11 @@
-# FontCollector
-[![FontCollector - Version](https://img.shields.io/pypi/v/fontcollector.svg)](https://pypi.org/project/FontCollector)
-[![FontCollector - Python Version](https://img.shields.io/pypi/pyversions/fontcollector.svg)](https://pypi.org/project/FontCollector)
-[![FontCollector - Downloads](https://img.shields.io/pypi/dm/fontcollector.svg)](https://pypistats.org/packages/fontcollector)
-[![FontCollector - Coverage](https://img.shields.io/codecov/c/github/moi15moi/FontCollector)](https://app.codecov.io/github/moi15moi/FontCollector)
-[![FontCollector - mypy](https://img.shields.io/badge/mypy-checked-blue)](https://github.com/moi15moi/FontCollector/actions?query=branch:main)
+# FontCollector-ex
 
 FontCollector for Advanced SubStation Alpha file.
-This tool allows to recover and/or mux the fonts necessary in an mkv.
+This tool allows to recover and/or mux the fonts necessary in an mkv. Mod to allow excluding terms from log.
+
 ## Installation
 ```
-pip install FontCollector
+pip install git+https://github.com/guyman624/FontCollector.git
 ```
 PS: If you get the error ``error: externally-managed-environment (PEP 668)``, you might wanna use [``pipx``](https://pipx.pypa.io/stable/installation/) instead of ``pip``.
 ## Dependencies
@@ -67,6 +63,11 @@ fontCollector -i "file1.ass" -mkv "example.mkv" -mkvtoolnix "C:\Program Files\MK
 Mux the font from the .ass file into an mkv and delete the currently attached fonts.
 ```
 fontCollector -i "file1.ass" -mkv "example.mkv" -mkvtoolnix "C:\Program Files\MKVToolNix" -d
+```
+
+Exclude "Mismatched weight" and "Faux bold" warnings.
+```
+fontcollector -i "file1.ass" -ex "Mismatched weight" "Faux bold"
 ```
 ## MKVFontValidator Usage
 ```console
