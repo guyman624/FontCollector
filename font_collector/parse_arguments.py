@@ -40,7 +40,8 @@ def parse_arguments() -> tuple[
     bool,
     bool,
     bool,
-    Path | None
+    Path | None,
+    list[str]
 ]:
     """
     Returns:
@@ -155,6 +156,17 @@ def parse_arguments() -> tuple[
     """,
     )
 
+    parser.add_argument(
+        "--logging-exclude-terms",
+        "-ex",
+        type=str,
+        nargs="*",
+        default=None,
+        help="""
+    Words to exclude from log. Matches all parts.
+    """,
+    )
+
     args = parser.parse_args()
 
     # Parse args
@@ -169,6 +181,7 @@ def parse_arguments() -> tuple[
     collect_draw_fonts = args.collect_draw_fonts
     convert_variable_to_collection = args.dont_convert_variable_to_collection
     logging_file_path = args.logging
+    logging_exclude_terms = args.logging_exclude_terms
 
     if len(ass_files_path) == 0 and not use_ass_in_mkv:
         raise RuntimeError("The specified file(s)/folder(s) doesn't exist or the folder(s) doesn't contains any .ass file.")
@@ -192,5 +205,6 @@ def parse_arguments() -> tuple[
         use_system_fonts,
         collect_draw_fonts,
         convert_variable_to_collection,
-        logging_file_path
+        logging_file_path,
+        logging_exclude_terms
     )
