@@ -45,8 +45,9 @@ def main() -> None:
     ) = parse_arguments()
 
     if logging_exclude_terms:
-        logging.getLogger().addFilter(ExcludeTermsFilter(logging_exclude_terms))
-
+        from . import _handler
+        _handler.addFilter(ExcludeTermsFilter(logging_exclude_terms))
+    
     if logging_file_path:
         file_handler = logging.FileHandler(logging_file_path, mode="a", encoding="utf-8")
         file_handler.setLevel(_handler.level)
